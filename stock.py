@@ -28,3 +28,20 @@ def get_latest_price(list_of_stocks):
     stock_prices[stock] = get_stock_price(stock)
     #return the dictionary
     return stock_prices
+"""
+Between Apple, Amazon, Netflix, Facebook, Google: find the stock
+that has moved the most percentage points from yesterday.
+"""
+
+def make_req_for_volatile_stock(stock_symbol):
+    csv_data = []
+    data, response = make_request(stock_symbol)
+    csv_data.extend([stock_symbol, data['dp'], data['c'],data['pc']]))#similar to push()
+    volatile_stock_key ='{}'.format(stock_symbol)
+    volatile_stock_dict.update({volatile_stock_key:csv_data})#{'AAPL':[['AAPL', 13.2, 120.5, 150]],'AMZN':[['AMZN', 13.2, 120.5, 150]]}
+    return data('dp') if response.status_code == 200 else 0
+
+"""
+Save the following information to a file called `most_volatile_stock` to a CSV file.
+With the following row format: stock_symbol, percentage_change, current_price, yesterday_price
+"""
