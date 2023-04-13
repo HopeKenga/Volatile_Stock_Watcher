@@ -5,6 +5,7 @@ for specific tech stocks. Use the `requests` package in Python.
 """
 import requests
 import csv
+import matplotlib.pyplot as plt
 
 csv_header =[]
 volatile_stock_dict = dict()
@@ -38,15 +39,25 @@ def make_req_for_volatile_stock(stock_symbol):
     volatile_stock_dict.update({volatile_stock_key:csv_data})#{'AAPL':[['AAPL', 13.2, 120.5, 150]],'AMZN':[['AMZN', 13.2, 120.5, 150]]}
     return data['dp'] if response.status_code == 200 else 0
 
+
 def get_most_volatile_stock(stock_symbol_list):
     stock_price_list = {}
     for stock_symbol in stock_symbol_list:
         stock_price = make_req_for_volatile_stock(stock_symbol)
         if stock_price is not None:
             stock_price_list[stock_symbol] = stock_price
-    most_volatile_stock.extend(volatile_stock_dict[max(stock_price_list, key=stock_price_list.get)])
-    return stock_price_list[max(stock_price_list, key=stock_price_list.get)]
-
+    # get the stock symbol of the most volatile stock
+    most_volatile_stock_symbol = max(stock_price_list, key=stock_price_list.get)
+    # get the percentage change of the most volatile stock
+    most_volatile_stock_price = stock_price_list[most_volatile_stock_symbol]
+    # plot a bar graph of the percentage change
+    plt.bar(most_volatile_stock_symbol, most_volatile_stock_price)
+    plt.ylabel('Percentage Change')
+    plt.title('Most Volatile Stock')
+    plt.show()
+    # store the stock symbol, percentage change, current price, and yesterday's price in a list
+    most_volatile_stock.extend(volatile_stock_dict[most_volatile_stock_symbol])
+    return most_volatile_stock_price
 
 
 """
