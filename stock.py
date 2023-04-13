@@ -21,3 +21,10 @@ Get the lates price for Apple, Netflix, Facebook, Google
 def get_latest_price(list_of_stocks):
     stock_prices ={}
     #for every item in the list, look up it's price
+
+    fro stock in list_of_stocks:
+    #Append the item name and it's stock price to the dictionary
+
+    stock_prices[stock] = get_stock_price(stock)
+    #return the dictionary
+    return stock_prices
